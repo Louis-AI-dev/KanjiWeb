@@ -1,4 +1,5 @@
 const options = document.querySelectorAll('.option');
+const buttons = document.getElementsByClassName('option');
 let correctAnswer = '';
 
 function loadKanji() {
@@ -26,7 +27,7 @@ function loadKanji() {
             options.add(correctAnswer);
 
             // Ajoute d'autres réponses aléatoires au Set pour éviter les doublons
-            while (options.size < 4) {
+            while (.size < 4) {
                 const randomOption = data[Math.floor(Math.random() * data.length)].signification;
                 options.add(randomOption);
             }
@@ -38,7 +39,6 @@ function loadKanji() {
             optionsArray.sort(() => Math.random() - 0.5);
 
             // Associe chaque option à un bouton
-            const buttons = document.getElementsByClassName('option');
             for (let i = 0; i < buttons.length; i++) {
                 buttons[i].textContent = optionsArray[i];
                 buttons[i].setAttribute('onclick', `checkAnswer('${optionsArray[i]}')`);
@@ -51,22 +51,41 @@ function loadKanji() {
 }
 
 function checkAnswer(selectedAnswer) {
-    const isCorrect = selectedAnswer === correctAnswer;
+    let correctButton;
 
-    options.forEach(option => {
-        if (option.textContent === selectedAnswer) {
-            if (isCorrect) {
-                option.classList.add('active');
-                setTimeout(() => option.classList.remove('active'), 1000);
-            } else {
-                option.classList.add('incorrect');
-                setTimeout(() => option.classList.remove('incorrect'), 1000);
-            }
-        } else {
-            option.classList.remove('active', 'incorrect');
+    // Vérifie chaque bouton pour voir lequel a la bonne réponse
+    for (let i = 0; i < buttons.length; i++) {
+        if (buttons[i].textContent === correctAnswer) {
+            correctButton = buttons[i];
         }
-    });
+    }
+
+    // Si la réponse sélectionnée est correcte
+    if (selectedAnswer === correctAnswer) {
+        correctButton.style.backgroundColor = 'green'; // Met le bouton correct en vert
+    } else {
+        // Si la réponse est incorrecte
+        for (let i = 0; i < buttons.length; i++) {
+            if (buttons[i].textContent === selectedAnswer) {
+                buttons[i].style.backgroundColor = 'red'; // Met le bouton incorrect en rouge
+            }
+        }
+        correctButton.style.backgroundColor = 'green'; // Montre la bonne réponse en vert
+    }
+
+    // Attends une seconde avant de charger un nouveau kanji
+    setTimeout(() => {
+        resetButtons(); // Réinitialise les boutons
+        loadKanji();    // Recharge un nouveau kanji
+    }, 1000);
 }
+
+function resetButtons() {
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].style.backgroundColor = ''; // Réinitialise la couleur des boutons
+    }
+}
+
 
 // Charger une image aléatoire au chargement de la page
 window.onload = loadKanji;

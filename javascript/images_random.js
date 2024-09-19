@@ -10,24 +10,45 @@ function loadKanji() {
             return response.json();
         })
         .then(data => {
+            // Sélection aléatoire d'un kanji
             const randomIndex = Math.floor(Math.random() * data.length);
             const kanjiData = data[randomIndex];
-
-            // Récupère le caractère kanji
             const kanjiCharacter = kanjiData.kanji;
-            console.log('Chargement du kanji:', kanjiCharacter); // Ajoute un message pour vérifier le caractère
 
-            // Affiche le kanji
+            // Affiche le kanji dans l'élément HTML
             document.getElementById('randomKanji').textContent = kanjiCharacter;
 
-            // Stocke la bonne réponse pour la vérification
-            correctAnswer = kanjiData.signification;
+            // Stocke la bonne réponse
+            const correctAnswer = kanjiData.signification;
+
+            // Mélange des options, en incluant la bonne réponse
+            const options = new Set();
+            options.add(correctAnswer);
+
+            // Ajoute d'autres réponses aléatoires au Set pour éviter les doublons
+            while (options.size < 4) {
+                const randomOption = data[Math.floor(Math.random() * data.length)].signification;
+                options.add(randomOption);
+            }
+
+            // Convertir le Set en Array pour manipuler les boutons
+            const optionsArray = Array.from(options);
+
+            // Mélange aléatoirement les options dans l'array
+            optionsArray.sort(() => Math.random() - 0.5);
+
+            // Associe chaque option à un bouton
+            const buttons = document.getElementsByClassName('option');
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].textContent = optionsArray[i];
+                buttons[i].setAttribute('onclick', `checkAnswer('${optionsArray[i]}')`);
+            }
+
         })
         .catch(error => {
             console.error('Erreur:', error);
         });
 }
-
 
 function checkAnswer(selectedAnswer) {
     const isCorrect = selectedAnswer === correctAnswer;

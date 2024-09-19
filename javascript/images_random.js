@@ -20,20 +20,20 @@ function loadKanji() {
             document.getElementById('randomKanji').textContent = kanjiCharacter;
 
             // Stocke la bonne réponse
-            const correctAnswer = kanjiData.signification;
+            correctAnswer = kanjiData.signification; // Correction ici
 
             // Mélange des options, en incluant la bonne réponse
-            const options = new Set();
-            options.add(correctAnswer);
+            const optionsSet = new Set();
+            optionsSet.add(correctAnswer);
 
             // Ajoute d'autres réponses aléatoires au Set pour éviter les doublons
-            while (.size < 4) {
+            while (optionsSet.size < 4) {
                 const randomOption = data[Math.floor(Math.random() * data.length)].signification;
-                options.add(randomOption);
+                optionsSet.add(randomOption);
             }
 
             // Convertir le Set en Array pour manipuler les boutons
-            const optionsArray = Array.from(options);
+            const optionsArray = Array.from(optionsSet);
 
             // Mélange aléatoirement les options dans l'array
             optionsArray.sort(() => Math.random() - 0.5);
@@ -57,6 +57,7 @@ function checkAnswer(selectedAnswer) {
     for (let i = 0; i < buttons.length; i++) {
         if (buttons[i].textContent === correctAnswer) {
             correctButton = buttons[i];
+            break; // On peut sortir de la boucle une fois qu'on a trouvé le bon bouton
         }
     }
 
@@ -68,6 +69,7 @@ function checkAnswer(selectedAnswer) {
         for (let i = 0; i < buttons.length; i++) {
             if (buttons[i].textContent === selectedAnswer) {
                 buttons[i].style.backgroundColor = 'red'; // Met le bouton incorrect en rouge
+                break; // On peut sortir de la boucle une fois qu'on a trouvé le bouton incorrect
             }
         }
         correctButton.style.backgroundColor = 'green'; // Montre la bonne réponse en vert
@@ -85,7 +87,6 @@ function resetButtons() {
         buttons[i].style.backgroundColor = ''; // Réinitialise la couleur des boutons
     }
 }
-
 
 // Charger une image aléatoire au chargement de la page
 window.onload = loadKanji;

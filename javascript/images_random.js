@@ -15,16 +15,13 @@ function loadKanji() {
             const randomIndex = Math.floor(Math.random() * data.length);
             const kanjiData = data[randomIndex];
             const kanjiCharacter = kanjiData.kanji;
-            const kanjiOnYomi = kanjiData.onYomi
-            const kanjiKunYomi = kanjiData.kunYomi
+            const kanjiMeanings = kanjiData.meanings; // Prend les significations
+            correctAnswer = kanjiMeanings[0]; // Prend la première signification comme bonne réponse
 
             // Affiche les informations du kanji dans les éléments HTML
             document.getElementById('randomKanji').textContent = kanjiCharacter;
-            document.getElementById('onYomi').textContent = kanjiOnYomi;
-            document.getElementById('kunYomi').textContent = kanjiKunYomi;
-
-            // Stocke la bonne réponse
-            correctAnswer = kanjiData.signification; // Correction ici
+            document.getElementById('onYomi').textContent = kanjiData.readings_on.join(', '); // Affiche les on'yomi
+            document.getElementById('kunYomi').textContent = kanjiData.readings_kun.join(', '); // Affiche les kun'yomi
 
             // Mélange des options, en incluant la bonne réponse
             const optionsSet = new Set();
@@ -32,7 +29,7 @@ function loadKanji() {
 
             // Ajoute d'autres réponses aléatoires au Set pour éviter les doublons
             while (optionsSet.size < 4) {
-                const randomOption = data[Math.floor(Math.random() * data.length)].signification;
+                const randomOption = data[Math.floor(Math.random() * data.length)].meanings[0]; // Prend la première signification aléatoire
                 optionsSet.add(randomOption);
             }
 

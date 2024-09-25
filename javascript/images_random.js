@@ -15,9 +15,13 @@ function loadKanji() {
             const randomIndex = Math.floor(Math.random() * data.length);
             const kanjiData = data[randomIndex];
             const kanjiCharacter = kanjiData.kanji;
+            const kanjiOnYomi = kanjiData.onYomi
+            const kanjiKunYomi = kanjiData.kunYomi
 
-            // Affiche le kanji dans l'élément HTML
+            // Affiche les informations du kanji dans les éléments HTML
             document.getElementById('randomKanji').textContent = kanjiCharacter;
+            document.getElementById('onYomi').textContent = kanjiOnYomi;
+            document.getElementById('kunYomi').textContent = kanjiKunYomi;
 
             // Stocke la bonne réponse
             correctAnswer = kanjiData.signification; // Correction ici

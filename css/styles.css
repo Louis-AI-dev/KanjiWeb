@@ -3,7 +3,7 @@ body {
     text-align: center;
     background-color: #f0f0f0;
     margin: 0;
-    padding: 20px;
+    padding: 0px;
 }
 
 h1 {
@@ -62,9 +62,10 @@ h1 {
 /* Bandeau de navigation */
 nav {
     background-color: #333;
-    padding: 0; /* Retire les marges internes */
-    margin: 0; /* Retire les marges externes */
-    width: 100vw; /* Prend toute la largeur de la fenêtre */
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    position: relative; /* Prend toute la largeur de l'écran */
 }
 
 nav ul {
@@ -72,24 +73,28 @@ nav ul {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start; /* Distribution égale des éléments */
+    align-items: center;
+    height: 50px; /* Hauteur du bandeau  */
 }
 
 nav ul li {
-    flex: 1; /* Chaque élément prend l'espace disponible également */
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Le lien prend toute la hauteur du bandeau */
 }
 
 nav ul li a {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: white;
     text-decoration: none;
     font-weight: bold;
-    padding: 15px 0; /* Assure une hauteur uniforme des liens */
-    text-align: center;
+    padding: 15px; /* Ajoute de l'espace horizontal */
     transition: background-color 0.3s ease;
-    height: 100%; /* Prend toute la hauteur du parent */
 }
 
-nav ul li a:hover {
-    background-color: #575757; /* Change la couleur au survol */
+nav ul li:hover {
+    background-color: #575757; /* Change la couleur de fond au survol */
 }

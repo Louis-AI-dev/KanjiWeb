@@ -59,39 +59,37 @@ h1 {
     background-color: #0056b3;
 }
 
-/* Style pour le bandeau de navigation */
+/* Bandeau de navigation */
 nav {
     background-color: #333;
-    padding: 10px;
-    margin-bottom: 20px;
+    padding: 0; /* Retire les marges internes */
+    margin: 0; /* Retire les marges externes */
+    width: 100vw; /* Prend toute la largeur de la fenêtre */
 }
 
 nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
-    text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
 nav ul li {
-    display: inline;
-    margin-right: 20px;
-}
-
-nav ul li:last-child {
-    margin-right: 0;
+    flex: 1; /* Chaque élément prend l'espace disponible également */
 }
 
 nav ul li a {
+    display: block;
     color: white;
     text-decoration: none;
     font-weight: bold;
-    padding: 8px 16px;
-    border-radius: 4px;
+    padding: 15px 0; /* Assure une hauteur uniforme des liens */
+    text-align: center;
     transition: background-color 0.3s ease;
+    height: 100%; /* Prend toute la hauteur du parent */
 }
 
 nav ul li a:hover {
-    background-color: #575757;
+    background-color: #575757; /* Change la couleur au survol */
 }
